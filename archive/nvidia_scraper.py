@@ -31,7 +31,7 @@ def parse_nvidia_smi_output(output):
 def scrape_nvidia_smi():
     try:
         nvidia_smi_output = subprocess.check_output([
-            'nvidia-smi.json',
+            'nvidia-smi',
             '--query-gpu='
             'name,'
             'pstate,'
@@ -45,7 +45,7 @@ def scrape_nvidia_smi():
             encoding='utf-8'
         )
     except subprocess.CalledProcessError as e:
-        print(f"An error occurred while running nvidia-smi.json: {e}", file=sys.stderr)
+        print(f"An error occurred while running nvidia-smi: {e}", file=sys.stderr)
         return
 
     return parse_nvidia_smi_output(nvidia_smi_output)

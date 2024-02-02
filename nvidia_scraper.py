@@ -8,7 +8,7 @@ def get_nvidia_smi_output():
 
     output = subprocess.check_output(
         [
-            'nvidia-smi.json',
+            'nvidia-smi',
             '--query-gpu='
             'name,'
             'driver_version,'
@@ -59,7 +59,7 @@ def get_nvidia_smi_output():
     metrics['clocks_throttle_reasons.sw_thermal_slowdown'] = lines[18]
     metrics['clocks_throttle_reasons.sync_boost'] = lines[19]
 
-    special_output = subprocess.check_output(['nvidia-smi.json', '-q', '-d', 'CLOCK'], encoding='utf-8')
+    special_output = subprocess.check_output(['nvidia-smi', '-q', '-d', 'CLOCK'], encoding='utf-8')
 
     # Regular expressions to find the relevant clock speeds
     current_graphics_clock_regex = r"Graphics\s+:\s+(\d+)\sMHz"
