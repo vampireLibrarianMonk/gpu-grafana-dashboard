@@ -46,7 +46,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -69,11 +70,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "name",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -124,7 +126,8 @@
               }
             ]
           },
-          "unit": "prefix:P"
+          "unit": "prefix:P",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -147,11 +150,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -202,7 +206,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -229,7 +234,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -278,7 +283,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -305,7 +311,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -355,7 +361,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -382,7 +389,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -432,7 +439,8 @@
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "celsius",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -459,7 +467,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -488,7 +496,8 @@
       "description": "Percent of time over the past sample period during which global (device) memory was being read or written.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -518,7 +527,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -615,7 +624,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -638,11 +648,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "name",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -683,7 +694,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -706,11 +718,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
         "textMode": "name",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -763,7 +776,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -794,7 +808,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -807,7 +821,7 @@
           "format": "time_series",
           "instant": true,
           "interval": "",
-          "legendFormat": "GPU Idle [{{gpu_idle}}]",
+          "legendFormat": "GPU Idle",
           "range": false,
           "refId": "A"
         },
@@ -821,7 +835,7 @@
           "expr": "nvidia_smi_clocks_throttle_reasons_hw_thermal_slowdown{uuid=\"$gpu\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "HW Thermal Slowdown [{{hw_thermal_slowdown}}]",
+          "legendFormat": "HW Thermal Slowdown",
           "range": true,
           "refId": "B"
         },
@@ -835,7 +849,7 @@
           "expr": "nvidia_smi_clocks_throttle_reasons_sw_power_cap{uuid=\"$gpu\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "SW Power Cap [{{sw_power_cap}}]",
+          "legendFormat": "SW Power Cap",
           "range": true,
           "refId": "C"
         },
@@ -849,7 +863,7 @@
           "expr": "nvidia_smi_clocks_throttle_reasons_applications_clocks_setting{uuid=\"$gpu\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "App Clocks Setting [{{clocks_setting}}]",
+          "legendFormat": "App Clocks Setting",
           "range": true,
           "refId": "D"
         },
@@ -863,7 +877,7 @@
           "expr": "nvidia_smi_clocks_throttle_reasons_hw_power_brake_slowdown{uuid=\"$gpu\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "HW Power Brake [{{brake_slowdown}}]",
+          "legendFormat": "HW Power Brake",
           "range": true,
           "refId": "E"
         },
@@ -877,7 +891,7 @@
           "expr": "nvidia_smi_clocks_throttle_reasons_sw_thermal_slowdown{uuid=\"$gpu\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "SW Thermal Slowdown [{{sw_thermal_slowdown}}]",
+          "legendFormat": "SW Thermal Slowdown",
           "range": true,
           "refId": "F"
         },
@@ -892,7 +906,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "Sync Boost [{{sync_boost}}]",
+          "legendFormat": "Sync Boost",
           "range": false,
           "refId": "G"
         }
@@ -931,7 +945,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -958,7 +973,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -1006,7 +1021,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1033,7 +1049,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -1083,7 +1099,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1110,7 +1127,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -1160,7 +1177,8 @@
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1187,7 +1205,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -1218,7 +1236,8 @@
       "description": "Percent of time over the past sample period during which one or more kernels was executing on the GPU.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1248,7 +1267,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1335,7 +1354,8 @@
       "description": "Total memory allocated by active contexts.",
       "fieldConfig": {
         "defaults": {
-          "unit": "decbytes"
+          "unit": "decbytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1365,7 +1385,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1432,7 +1452,8 @@
       "description": "Core GPU temperature. in degrees C.",
       "fieldConfig": {
         "defaults": {
-          "unit": "celsius"
+          "unit": "celsius",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1462,7 +1483,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1549,7 +1570,8 @@
       "description": "The last measured power draw for the entire board, in watts. Only available if power management is supported. This reading is accurate to within +/- 5 watts",
       "fieldConfig": {
         "defaults": {
-          "unit": "watt"
+          "unit": "watt",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1579,7 +1601,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1645,7 +1667,8 @@
       "description": "The fan speed value is the percent of the product's maximum noise tolerance fan speed that the device's fan is currently intended to run at. This value may exceed 100% in certain cases. Note: The reported speed is the intended fan speed. If the fan is physically blocked and unable to spin, this output will not match the actual fan speed. Many parts do not report fan speeds because they rely on cooling via fans in the surrounding enclosure.\n",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "percentunit",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1675,7 +1698,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1761,7 +1784,8 @@
       "description": "Current frequency of graphics (shader) clock.",
       "fieldConfig": {
         "defaults": {
-          "unit": "hertz"
+          "unit": "hertz",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1791,7 +1815,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1858,7 +1882,8 @@
       "description": "Current frequency of video encoder/decoder clock.",
       "fieldConfig": {
         "defaults": {
-          "unit": "hertz"
+          "unit": "hertz",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1888,7 +1913,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1957,7 +1982,8 @@
       "description": "Current frequency of SM (Streaming Multiprocessor) clock.",
       "fieldConfig": {
         "defaults": {
-          "unit": "hertz"
+          "unit": "hertz",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1987,7 +2013,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2056,7 +2082,8 @@
       "description": "Current frequency of memory clock.",
       "fieldConfig": {
         "defaults": {
-          "unit": "hertz"
+          "unit": "hertz",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2086,7 +2113,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2193,6 +2220,6 @@
   "timezone": "",
   "title": "Nvidia GPU Metrics",
   "uid": "vlvPlrgnk",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }

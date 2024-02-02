@@ -34,13 +34,13 @@ def format_prometheus_metrics(metrics):
     prometheus_metrics += f'nvidia_smi_clocks_current_video_clock_hz{{}} {metrics["clocks.video"]}\n'
     prometheus_metrics += f'nvidia_smi_clocks_current_sm_clock_hz{{}} {metrics["clocks.sm"]}\n'
 
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_gpu_idle{{gpu_idle="{metrics["clocks_throttle_reasons.gpu_idle"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_thermal_slowdown{{hw_thermal_slowdown="{metrics["clocks_throttle_reasons.hw_thermal_slowdown"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_power_cap{{sw_power_cap="{metrics["clocks_throttle_reasons.sw_power_cap"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_applications_clocks_setting{{clocks_setting="{metrics["clocks_throttle_reasons.applications_clocks_setting"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_power_brake_slowdown{{brake_slowdown="{metrics["clocks_throttle_reasons.hw_power_brake_slowdown"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_thermal_slowdown{{sw_thermal_slowdown="{metrics["clocks_throttle_reasons.sw_thermal_slowdown"]}"}} 1\n'
-    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sync_boost{{sync_boost="{metrics["clocks_throttle_reasons.sync_boost"]}"}} 1\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_gpu_idle{{gpu_idle="{metrics["clocks_throttle_reasons.gpu_idle"]}"}} {1 if metrics["clocks_throttle_reasons.gpu_idle"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_thermal_slowdown{{hw_thermal_slowdown="{metrics["clocks_throttle_reasons.hw_thermal_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.hw_thermal_slowdown"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_power_cap{{sw_power_cap="{metrics["clocks_throttle_reasons.sw_power_cap"]}"}} {1 if metrics["clocks_throttle_reasons.sw_power_cap"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_applications_clocks_setting{{clocks_setting="{metrics["clocks_throttle_reasons.applications_clocks_setting"]}"}} {1 if metrics["clocks_throttle_reasons.applications_clocks_setting"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_power_brake_slowdown{{brake_slowdown="{metrics["clocks_throttle_reasons.hw_power_brake_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.hw_power_brake_slowdown"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_thermal_slowdown{{sw_thermal_slowdown="{metrics["clocks_throttle_reasons.sw_thermal_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.sw_thermal_slowdown"] == "Active" else 0}\n'
+    prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sync_boost{{sync_boost="{metrics["clocks_throttle_reasons.sync_boost"]}"}} {1 if metrics["clocks_throttle_reasons.sync_boost"] == "Active" else 0}\n'
 
     return prometheus_metrics
 
