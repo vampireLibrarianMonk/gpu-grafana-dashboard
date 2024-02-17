@@ -97,11 +97,9 @@ sudo systemctl start prometheus
 sudo systemctl enable prometheus
 ```
 
-10. Update Prometheus Configuration
-# Replace the existing Prometheus configuration with your custom configuration from your repository
-# Make sure to replace /path/to/your/repo with the actual path where your prometheus.yml file is located
+10. Update Prometheus Configuration (amd or nvidia)
 ```bash
-sudo cp /path/to/your/repo/ymls/prometheus.yml /etc/prometheus/prometheus.yml
+sudo prometheus/{GPU_CHIPSET_MANUFACTURER}.yml /etc/prometheus/{GPU_CHIPSET_MANUFACTURER}.yml
 ```
 
 11. Reload Prometheus to apply the configuration changes
@@ -112,4 +110,32 @@ sudo systemctl reload prometheus
 12. Check the status of Prometheus to ensure it is running as expected
 ```bash
 sudo systemctl status prometheus
+```
+
+Result:
+```bash
+● prometheus.service - Monitoring system and time series database
+     Loaded: loaded (/lib/systemd/system/prometheus.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2024-02-16 20:24:16 EST; 3min 32s ago
+       Docs: https://prometheus.io/docs/introduction/overview/
+             man:prometheus(1)
+    Process: 8401 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+   Main PID: 8056 (prometheus)
+      Tasks: 29 (limit: 154341)
+     Memory: 35.5M
+        CPU: 436ms
+     CGroup: /system.slice/prometheus.service
+             └─8056 /usr/bin/prometheus
+
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.266Z caller=head.go:598 level=info component=tsdb msg="WAL replay completed" checkpoint_replay_duration=21.65µs wal_replay_duration=198.349µs total_replay_duration=237.319µs
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.267Z caller=main.go:850 level=info fs_type=EXT4_SUPER_MAGIC
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.267Z caller=main.go:853 level=info msg="TSDB started"
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.267Z caller=main.go:980 level=info msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.268Z caller=main.go:1017 level=info msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml totalDuration=901.686µs db_storage=650ns remote_storage=1.61µs web_handler=390ns query>
+Feb 16 20:24:16 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:24:16.268Z caller=main.go:795 level=info msg="Server is ready to receive web requests."
+Feb 16 20:27:44 amd-gpu-machine systemd[1]: Reloading Monitoring system and time series database...
+Feb 16 20:27:44 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:27:44.486Z caller=main.go:980 level=info msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
+Feb 16 20:27:44 amd-gpu-machine systemd[1]: Reloaded Monitoring system and time series database.
+Feb 16 20:27:44 amd-gpu-machine prometheus[8056]: ts=2024-02-17T01:27:44.487Z caller=main.go:1017 level=info msg="Completed loading of configuration file" filename=/etc/prometheus/prometheus.yml totalDuration=525.837µs db_storage=1.22µs remote_storage=1.77µs web_handler=580ns quer>
+lines 1-23/23 (END)
 ```

@@ -2,7 +2,7 @@ import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import schedule
 import threading
-from nvidia_scraper import get_nvidia_smi_output
+from scrapers.nvidia_scraper import get_nvidia_smi_output
 
 latest_metrics = []
 
