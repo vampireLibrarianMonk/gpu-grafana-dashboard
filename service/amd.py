@@ -1,77 +1,46 @@
 import time
-from http.server import HTTPServer, BaseHTTPRequestHandler
 import schedule
 import threading
+from prometheus_client import Gauge, start_http_server
 from scrapers.rocm_scaper import get_rocm_smi_output
 
-latest_metrics = []
-
-
-def format_prometheus_metrics(metrics):
-    prometheus_metrics = ''
-
-    gpu_name = metrics["gpu_name"]
-    driver_version = metrics["driver_version"]
-    # vbios_version = metrics["vbios_version"]
-    # prometheus_metrics += f'nvidia_smi_gpu_name{{gpu_name="{gpu_name}"}} 1\n'
-    # prometheus_metrics += f'nvidia_smi_gpu_driver{{driver_version="{driver_version}"}} 1\n'
-    # prometheus_metrics += f'nvidia_smi_gpu_vbios{{vbios_version="{vbios_version}"}} 1\n'
-    # prometheus_metrics += f'nvidia_smi_pstate{{p_state_info="{metrics["p_state"]}"}} 1\n'
-    # prometheus_metrics += f'nvidia_smi_utilization_gpu_ratio{{}} {metrics["gpu_utilization"]}\n'
-    # prometheus_metrics += f'nvidia_smi_utilization_memory_ratio{{}} {metrics["memory_utilization"]}\n'
-    # prometheus_metrics += f'nvidia_smi_memory_used_bytes{{}} {metrics["memory_used"]}\n'
-    # prometheus_metrics += f'nvidia_smi_memory_total_bytes{{}} {metrics["memory_total"]}\n'
-    # prometheus_metrics += f'nvidia_memory_total{{}} {metrics["memory_total"]}\n'
-    # prometheus_metrics += f'nvidia_smi_temperature_gpu{{}} {metrics["temperature"]}\n'
-    # prometheus_metrics += f'nvidia_fan_speed{{}} {metrics["fan_speed"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_current_graphics_clock_hz{{}} {metrics["current_graphics_clock"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_max_graphics_clock_hz{{}} {metrics["max_graphics_clock"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_current_memory_clock_hz{{}} {metrics["current_memory_clock"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_max_memory_clock_hz{{}} {metrics["max_memory_clock"]}\n'
-    # prometheus_metrics += f'nvidia_smi_fan_speed_ratio{{}} {metrics["fan_speed"]}\n'
-    # prometheus_metrics += f'nvidia_smi_power_draw_watts{{}} {metrics["power.draw"]}\n'
-    # prometheus_metrics += f'nvidia_smi_power_default_limit_watts{{}} {metrics["power.default_limit"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_current_video_clock_hz{{}} {metrics["clocks.video"]}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_current_sm_clock_hz{{}} {metrics["clocks.sm"]}\n'
-    #
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_gpu_idle{{gpu_idle="{metrics["clocks_throttle_reasons.gpu_idle"]}"}} {1 if metrics["clocks_throttle_reasons.gpu_idle"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_thermal_slowdown{{hw_thermal_slowdown="{metrics["clocks_throttle_reasons.hw_thermal_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.hw_thermal_slowdown"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_power_cap{{sw_power_cap="{metrics["clocks_throttle_reasons.sw_power_cap"]}"}} {1 if metrics["clocks_throttle_reasons.sw_power_cap"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_applications_clocks_setting{{clocks_setting="{metrics["clocks_throttle_reasons.applications_clocks_setting"]}"}} {1 if metrics["clocks_throttle_reasons.applications_clocks_setting"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_hw_power_brake_slowdown{{brake_slowdown="{metrics["clocks_throttle_reasons.hw_power_brake_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.hw_power_brake_slowdown"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sw_thermal_slowdown{{sw_thermal_slowdown="{metrics["clocks_throttle_reasons.sw_thermal_slowdown"]}"}} {1 if metrics["clocks_throttle_reasons.sw_thermal_slowdown"] == "Active" else 0}\n'
-    # prometheus_metrics += f'nvidia_smi_clocks_throttle_reasons_sync_boost{{sync_boost="{metrics["clocks_throttle_reasons.sync_boost"]}"}} {1 if metrics["clocks_throttle_reasons.sync_boost"] == "Active" else 0}\n'
-
-    return prometheus_metrics
+# Define Prometheus metrics
+gpu_name = Gauge('rocm_smi_gpu_name', 'GPU Name', ['gpu_name'])
+driver_version = Gauge('rocm_smi_driver_version', 'Driver Version', ['driver_version'])
+vbios_version = Gauge('rocm_smi_vbios_version', 'VBIOS Version', ['vbios_version'])
+p_state = Gauge('rocm_smi_p_state', 'Performance Level', ['p_state'])
+gpu_utilization = Gauge('rocm_smi_utilization_gpu_ratio', 'GPU Utilization Ratio')
+memory_utilization = Gauge('rocm_smi_utilization_memory_ratio', 'Memory Utilization Ratio')
+memory_used = Gauge('rocm_smi_memory_used_bytes', 'Memory Used in Bytes')
+memory_total = Gauge('rocm_smi_memory_total_bytes', 'Total Memory in Bytes')
+temperature = Gauge('rocm_smi_temperature_gpu', 'GPU Temperature')
+fan_speed = Gauge('rocm_smi_fan_speed', 'Fan Speed')
+current_graphics_clock = Gauge('rocm_smi_clocks_current_graphics_clock_hz', 'Current Graphics Clock in Hz')
+current_memory_clock = Gauge('rocm_smi_clocks_current_memory_clock_hz', 'Current Memory Clock in Hz')
+power_draw = Gauge('rocm_smi_power_draw_watts', 'Power Draw in Watts')
+power_default_limit = Gauge('rocm_smi_power_default_limit_watts', 'Power Default Limit in Watts')
 
 
 def fetch_metrics():
-    global latest_metrics
-    latest_metrics = get_rocm_smi_output()
+    metrics = get_rocm_smi_output()
 
+    # Set metrics with labels
+    gpu_name.labels(gpu_name=metrics['gpu_name']).set(1)
+    driver_version.labels(driver_version=metrics['driver_version']).set(1)
+    vbios_version.labels(vbios_version=metrics['vbios_version']).set(1)
+    p_state.labels(p_state=metrics['p_state']).set(1)
 
-class MetricsHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/metrics':
-            self.send_response(200)
-            self.send_header('Content-type', 'text/plain')
-            self.end_headers()
-            formatted_metrics = format_prometheus_metrics(latest_metrics)
-            self.wfile.write(formatted_metrics.encode())
-        else:
-            self.send_response(404)
-            self.end_headers()
-
-
-def run_server():
-    port = 8000
-    server_address = ('', port)
-    try:
-        httpd = HTTPServer(server_address, MetricsHandler)
-        print(f'Starting metrics server on port {port}')
-        httpd.serve_forever()
-    except Exception as e:
-        print(f"Failed to start server: {e}")
+    # Set metrics without labels
+    gpu_utilization.set(metrics["gpu_utilization"])
+    memory_utilization.set(metrics["memory_utilization"])
+    memory_used.set(metrics["memory_used"])
+    memory_total.set(metrics["memory_total"])
+    temperature.set(metrics["temperature"])
+    fan_speed.set(metrics["fan_speed"])
+    current_graphics_clock.set(metrics["current_graphics_clock"])
+    current_memory_clock.set(metrics["current_memory_clock"])
+    power_draw.set(metrics["power.draw"])
+    power_default_limit.set(metrics["power.default_limit"])
 
 
 def run_scheduler():
@@ -82,7 +51,14 @@ def run_scheduler():
 
 
 if __name__ == '__main__':
-    fetch_metrics()
-    thread = threading.Thread(target=run_scheduler)
-    thread.start()
-    run_server()
+    # Start the Prometheus metrics server on port 8000
+    start_http_server(8000)
+    print('Metrics server running on port 8000')
+
+    # Start the metrics fetching scheduler
+    fetch_metrics()  # Initial fetch to populate metrics
+    threading.Thread(target=run_scheduler, daemon=True).start()
+
+    # Keep the main thread alive
+    while True:
+        time.sleep(10)

@@ -99,7 +99,7 @@ sudo systemctl enable prometheus
 
 10. Update Prometheus Configuration (amd or nvidia)
 ```bash
-sudo prometheus/{GPU_CHIPSET_MANUFACTURER}.yml /etc/prometheus/{GPU_CHIPSET_MANUFACTURER}.yml
+sudo cp prometheus/{GPU_CHIPSET_MANUFACTURER}.yml /etc/prometheus/{GPU_CHIPSET_MANUFACTURER}.yml
 ```
 
 11. Reload Prometheus to apply the configuration changes
