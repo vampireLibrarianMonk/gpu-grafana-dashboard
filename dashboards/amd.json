@@ -210,7 +210,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 6,
         "x": 6,
         "y": 0
       },
@@ -246,83 +246,6 @@
         }
       ],
       "title": "Temperature",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "fe9mm6sjtbz7kf"
-      },
-      "description": "The fan speed value is the percent of the product's maximum noise tolerance fan speed that the device's fan is currently intended to run at. This value may exceed 100% in certain cases. Note: The reported speed is the intended fan speed. If the fan is physically blocked and unable to spin, this output will not match the actual fan speed. Many parts do not report fan speeds because they rely on cooling via fans in the surrounding enclosure.\n",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 9,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "minVizHeight": 200,
-        "minVizWidth": 200,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "fe9mm6sjtbz7kf"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "rocm_smi_fan_speed{uuid=\"$gpu\"}",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Fan Speed %",
       "type": "gauge"
     },
     {
@@ -778,7 +701,7 @@
         "type": "prometheus",
         "uid": "fe9mm6sjtbz7kf"
       },
-      "description": "Percent of time over the past sample period during which one or more kernels was executing on the GPU.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
+      "description": "Total memory allocated by active contexts / Total installed GPU memory.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -810,86 +733,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 6,
         "x": 6,
         "y": 5
       },
-      "id": 6,
-      "options": {
-        "minVizHeight": 200,
-        "minVizWidth": 200,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "fe9mm6sjtbz7kf"
-          },
-          "exemplar": true,
-          "expr": "rocm_smi_utilization_gpu_ratio{uuid=\"$gpu\"}",
-          "interval": "",
-          "legendFormat": "{{uuid}}",
-          "refId": "A"
-        }
-      ],
-      "title": "GPU Utilization %",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "fe9mm6sjtbz7kf"
-      },
-      "description": "The last measured power draw for the entire board, in watts. Only available if power management is supported. This reading is accurate to within +/- 5 watts / The software power limit in watts.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 9,
-        "y": 5
-      },
-      "id": 21,
+      "id": 25,
       "options": {
         "minVizHeight": 200,
         "minVizWidth": 200,
@@ -915,14 +763,14 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rocm_smi_power_draw_watts{uuid=\"$gpu\"} / rocm_smi_power_default_limit_watts{uuid=\"$gpu\"}",
+          "expr": "rocm_smi_memory_used_bytes{uuid=\"$gpu\"} / rocm_smi_memory_total_bytes{uuid=\"$gpu\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Power Draw %",
+      "title": "Memory Allocation %",
       "type": "gauge"
     },
     {
@@ -1236,7 +1084,7 @@
         "type": "prometheus",
         "uid": "fe9mm6sjtbz7kf"
       },
-      "description": "Total memory allocated by active contexts / Total installed GPU memory.",
+      "description": "Percent of time over the past sample period during which global (device) memory was being read or written.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1268,11 +1116,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 6,
         "x": 6,
         "y": 10
       },
-      "id": 25,
+      "id": 7,
       "options": {
         "minVizHeight": 200,
         "minVizWidth": 200,
@@ -1298,14 +1146,91 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rocm_smi_memory_used_bytes{uuid=\"$gpu\"} / rocm_smi_memory_total_bytes{uuid=\"$gpu\"}",
+          "expr": "rocm_smi_utilization_memory_ratio{uuid=\"$gpu\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Memory Allocation %",
+      "title": "Memory Utilization %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fe9mm6sjtbz7kf"
+      },
+      "description": "The last measured power draw for the entire board, in watts. Only available if power management is supported. This reading is accurate to within +/- 5 watts / The software power limit in watts.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 10
+      },
+      "id": 21,
+      "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {}
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fe9mm6sjtbz7kf"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rocm_smi_power_draw_watts{uuid=\"$gpu\"} / rocm_smi_power_default_limit_watts{uuid=\"$gpu\"}",
+          "interval": "",
+          "legendFormat": "",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Power Draw %",
       "type": "gauge"
     },
     {
@@ -1521,7 +1446,7 @@
         "type": "prometheus",
         "uid": "fe9mm6sjtbz7kf"
       },
-      "description": "Percent of time over the past sample period during which global (device) memory was being read or written.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
+      "description": "Percent of time over the past sample period during which one or more kernels was executing on the GPU.\nThe sample period may be between 1 second and 1/6 second depending on the product.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1553,11 +1478,86 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 6,
         "x": 6,
         "y": 15
       },
-      "id": 7,
+      "id": 6,
+      "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {}
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fe9mm6sjtbz7kf"
+          },
+          "exemplar": true,
+          "expr": "rocm_smi_utilization_gpu_ratio{uuid=\"$gpu\"}",
+          "interval": "",
+          "legendFormat": "{{uuid}}",
+          "refId": "A"
+        }
+      ],
+      "title": "GPU Utilization %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fe9mm6sjtbz7kf"
+      },
+      "description": "The fan speed value is the percent of the product's maximum noise tolerance fan speed that the device's fan is currently intended to run at. This value may exceed 100% in certain cases. Note: The reported speed is the intended fan speed. If the fan is physically blocked and unable to spin, this output will not match the actual fan speed. Many parts do not report fan speeds because they rely on cooling via fans in the surrounding enclosure.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 15
+      },
+      "id": 4,
       "options": {
         "minVizHeight": 200,
         "minVizWidth": 200,
@@ -1583,14 +1583,14 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "rocm_smi_utilization_memory_ratio{uuid=\"$gpu\"}",
+          "expr": "rocm_smi_fan_speed{uuid=\"$gpu\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Memory Utilization %",
+      "title": "Fan Speed %",
       "type": "gauge"
     },
     {
@@ -1736,13 +1736,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2025-01-11T03:41:51.374Z",
+    "to": "2025-01-11T03:51:51.374Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "AMD GPU Metrics",
   "uid": "vlvPlrgnk",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
