@@ -26,6 +26,8 @@ power_default_limit = Gauge('rocm_smi_power_default_limit_watts', 'Power Default
 usage_cpu_percentage = Gauge('cpu_usage_percentage', 'CPU usage percentage')
 total_cpu_cores = Gauge('total_cores', 'Total CPU cores')
 total_cpu_threads = Gauge('total_cpu_threads', 'Total CPU threads')
+tccd1_temp_cpu = Gauge('tccd_temp_cpu_one', 'Core Complex Die Temperature 1')
+tccd2_temp_cpu = Gauge('tccd_temp_cpu_two', 'Core Complex Die Temperature 2')
 
 ## RAM
 total_ram_gb = Gauge('total_ram_gb', 'Total RAM Available in Gigabytes')
@@ -61,6 +63,8 @@ def fetch_metrics():
     usage_cpu_percentage.set(cpu_ram_metrics['cpu_usage_percentage'])
     total_cpu_cores.set(cpu_ram_metrics['total_cores'])
     total_cpu_threads.set(cpu_ram_metrics['total_cpu_threads'])
+    tccd1_temp_cpu.set(cpu_ram_metrics['cpu_tccd1_temp'])
+    tccd2_temp_cpu.set(cpu_ram_metrics['cpu_tccd2_temp'])
 
     ## RAM
     total_ram_gb.set(cpu_ram_metrics['total_ram_gb'])
