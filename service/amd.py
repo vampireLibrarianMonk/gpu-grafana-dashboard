@@ -2,6 +2,16 @@ import time
 import schedule
 import threading
 from prometheus_client import Gauge, start_http_server
+
+import sys
+import os
+
+# Get the current directory where the script is running
+current_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Add it to the system path so that utilities can be imported
+sys.path.append(current_directory)
+
 from utilities.utilities_rocm_gpu import get_gpu_info
 from utilities.utilities_cpu_ram import get_system_usage
 
